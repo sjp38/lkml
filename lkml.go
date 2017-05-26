@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 func main() {
@@ -19,5 +20,13 @@ func main() {
 		panic(fmt.Sprintf("failed to read body: %s", err))
 	}
 
-	fmt.Printf(string(body))
+	rsslines := strings.Split(string(body), "\n")
+
+	for _, line := range rsslines {
+		txt := strings.TrimSpace(line)
+		if strings.HasPrefix(txt, "<title>") && strings.HasSuffix(txt,
+			"</title>") {
+			fmt.Printf("%s\n", txt[len("<title>"):len(txt)-len("</title>")])
+		}
+	}
 }
