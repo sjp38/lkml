@@ -13,6 +13,23 @@ type rssItem struct {
 	link	string
 }
 
+func isElemOf(element string, tagname string) bool {
+	starttag := fmt.Sprintf("<%s>", tagname)
+	endtag := fmt.Sprintf("</%s>", tagname)
+
+	return strings.HasPrefix(element, starttag) &&
+		strings.HasSuffix(element, endtag)
+}
+
+func contentOf(element string, tagname string) string {
+	starttag := fmt.Sprintf("<%s>", tagname)
+	endtag := fmt.Sprintf("</%s>", tagname)
+
+	sidx := len(starttag)
+	eidx := len(element) - len(endtag)
+	return element[sidx:eidx]
+}
+
 func main() {
 	resp, err := http.Get("https://lkml.org/rss.php")
 	if err != nil {
@@ -37,23 +54,16 @@ func main() {
 			item = rssItem{}
 			continue
 		}
-		if strings.HasPrefix(txt, "<title>") && strings.HasSuffix(txt,
-			"</title>") {
-			sidx := len("<title>")
-			eidx := len(txt) - len("</title>")
-			item.title = txt[sidx:eidx]
+		if isElemOf(txt, "title") {
+			item.title = contentOf(txt, "title")
 			continue
 		}
-		if strings.HasPrefix(txt, "<author>") && strings.HasSuffix(txt, "</author>") {
-			sidx := len("<author>")
-			eidx := len(txt) - len("</author>")
-			item.author = txt[sidx:eidx]
+		if isElemOf(txt, "author") {
+			item.author = contentOf(txt, "author")
 			continue
 		}
-		if strings.HasPrefix(txt, "<link>") && strings.HasSuffix(txt, "</link>") {
-			sidx := len("<link>")
-			eidx := len(txt) - len("</link>")
-			item.link = txt[sidx:eidx]
+		if isElemOf(txt, "link") {
+			item.link = contentOf(txt, "link")
 			continue
 		}
 		if txt == "</item>" {
