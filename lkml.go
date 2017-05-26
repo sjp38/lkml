@@ -21,13 +21,19 @@ func main() {
 
 	rsslines := strings.Split(string(body), "\n")
 
+	var titles []string
 	for _, line := range rsslines {
 		txt := strings.TrimSpace(line)
 		if strings.HasPrefix(txt, "<title>") && strings.HasSuffix(txt,
 			"</title>") {
 			sidx := len("<title>")
 			eidx := len(txt) - len("</title>")
-			fmt.Printf("%s\n", txt[sidx:eidx])
+			titles = append(titles, txt[sidx:eidx])
 		}
+	}
+
+	// 0th index is rss channel title. So, skip it.
+	for i := len(titles) - 1; i > 0; i-- {
+		fmt.Printf("%s\n", titles[i])
 	}
 }
