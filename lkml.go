@@ -80,6 +80,7 @@ func main() {
 
 	// 0th index is rss channel title. So, skip it.
 	for i := len(items) - 1; i > 0; i-- {
-		fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title, items[i].author, items[i].link)
+		fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title,
+					items[i].author, items[i].link)
 	}
 }
