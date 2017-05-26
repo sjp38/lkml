@@ -1,8 +1,7 @@
-lkmllive
+lkml
 ========
 
-`lkmllive` is a simple, stupid RSS feed viewer for lkml (Linux Kernel Mailing
-List).
+`lkml` is a simple, stupid lkml (Linux Kernel Mailing List) viewer.
 
 
 License
