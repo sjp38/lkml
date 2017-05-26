@@ -30,19 +30,9 @@ func contentOf(element string, tagname string) string {
 	return element[sidx:eidx]
 }
 
-func main() {
-	resp, err := http.Get("https://lkml.org/rss.php")
-	if err != nil {
-		panic(fmt.Sprintf("failed to get rss: %s", err))
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	resp.Body.Close()
-	if err != nil {
-		panic(fmt.Sprintf("failed to read body: %s", err))
-	}
-
-	rsslines := strings.Split(string(body), "\n")
+func parseRSS(rssText string) []rssItem {
+	// Assumes that each element is splitted by newline
+	rsslines := strings.Split(rssText, "\n")
 
 	var items []rssItem
 	var item rssItem
@@ -70,6 +60,23 @@ func main() {
 			items = append(items, item)
 		}
 	}
+
+	return items
+}
+
+func main() {
+	resp, err := http.Get("https://lkml.org/rss.php")
+	if err != nil {
+		panic(fmt.Sprintf("failed to get rss: %s", err))
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	if err != nil {
+		panic(fmt.Sprintf("failed to read body: %s", err))
+	}
+
+	items := parseRSS(string(body))
 
 	// 0th index is rss channel title. So, skip it.
 	for i := len(items) - 1; i > 0; i-- {
