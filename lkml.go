@@ -26,7 +26,9 @@ func main() {
 		txt := strings.TrimSpace(line)
 		if strings.HasPrefix(txt, "<title>") && strings.HasSuffix(txt,
 			"</title>") {
-			fmt.Printf("%s\n", txt[len("<title>"):len(txt)-len("</title>")])
+			sidx := len("<title>")
+			eidx := len(txt) - len("</title>")
+			fmt.Printf("%s\n", txt[sidx:eidx])
 		}
 	}
 }
