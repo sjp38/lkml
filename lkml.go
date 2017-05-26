@@ -21,13 +21,18 @@ func isElemOf(element string, tagname string) bool {
 		strings.HasSuffix(element, endtag)
 }
 
+func unEscape(txt string) string {
+	txt = strings.Replace(txt, "&lt;", "<", -1)
+	return strings.Replace(txt, "&gt;", ">", -1)
+}
+
 func contentOf(element string, tagname string) string {
 	starttag := fmt.Sprintf("<%s>", tagname)
 	endtag := fmt.Sprintf("</%s>", tagname)
 
 	sidx := len(starttag)
 	eidx := len(element) - len(endtag)
-	return element[sidx:eidx]
+	return unEscape(element[sidx:eidx])
 }
 
 func parseRSS(rssText string) []rssItem {
@@ -38,8 +43,6 @@ func parseRSS(rssText string) []rssItem {
 	var item rssItem
 	for _, line := range rsslines {
 		txt := strings.TrimSpace(line)
-		txt = strings.Replace(txt, "&lt;", "<", -1)
-		txt = strings.Replace(txt, "&gt;", ">", -1)
 		if txt == "<item>" {
 			item = rssItem{}
 			continue
