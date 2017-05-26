@@ -31,6 +31,8 @@ func main() {
 	var item rssItem
 	for _, line := range rsslines {
 		txt := strings.TrimSpace(line)
+		txt = strings.Replace(txt, "&lt;", "<", -1)
+		txt = strings.Replace(txt, "&gt;", ">", -1)
 		if txt == "<item>" {
 			item = rssItem{}
 			continue
