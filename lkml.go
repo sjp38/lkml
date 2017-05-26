@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Printf("Hello\n")
 	resp, err := http.Get("https://lkml.org/rss.php")
 	if err != nil {
 		panic(fmt.Sprintf("failed to get rss: %s", err))
