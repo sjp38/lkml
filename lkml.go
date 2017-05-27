@@ -90,22 +90,26 @@ func fetchRSS() string {
 	return string(body)
 }
 
+func printLKML() {
+	items := parseRSS(fetchRSS())
+
+	// 0th index is rss channel title. So, skip it.
+	for i := len(items) - 1; i > 0; i-- {
+		if !strings.Contains(items[i].title, *keyword) {
+			continue
+		}
+		fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title,
+			items[i].author, items[i].link)
+	}
+}
+
 func main() {
 	flag.Parse()
 
-	for u := 0; u < *count; u++ {
-		if u > 0 {
+	for i := 0; i < *count; u++ {
+		if i > 0 {
 			time.Sleep(time.Duration(*delay) * time.Second)
 		}
-		items := parseRSS(fetchRSS())
-
-		// 0th index is rss channel title. So, skip it.
-		for i := len(items) - 1; i > 0; i-- {
-			if !strings.Contains(items[i].title, *keyword) {
-				continue
-			}
-			fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title,
-				items[i].author, items[i].link)
-		}
+		printLKML()
 	}
 }
