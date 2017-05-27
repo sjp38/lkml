@@ -98,10 +98,19 @@ func printLKML() {
 func main() {
 	flag.Parse()
 
-	for i := 0; i < *count; i++ {
+	i := 0
+	for {
 		if i > 0 {
 			time.Sleep(time.Duration(*delay) * time.Second)
 		}
 		printLKML()
+
+		i++
+		if *count == -1 {
+			continue
+		}
+		if (i >= *count) {
+			break
+		}
 	}
 }
