@@ -1,11 +1,14 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
 )
+
+var keyword = flag.String("keyword", "", "Keyword to be exist in title")
 
 type rssItem struct {
 	title  string
@@ -68,6 +71,8 @@ func parseRSS(rssText string) []rssItem {
 }
 
 func main() {
+	flag.Parse()
+
 	resp, err := http.Get("https://lkml.org/rss.php")
 	if err != nil {
 		panic(fmt.Sprintf("failed to get rss: %s", err))
@@ -83,6 +88,9 @@ func main() {
 
 	// 0th index is rss channel title. So, skip it.
 	for i := len(items) - 1; i > 0; i-- {
+		if !strings.Contains(items[i].title, *keyword) {
+			continue
+		}
 		fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title,
 			items[i].author, items[i].link)
 	}
