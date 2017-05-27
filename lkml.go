@@ -106,7 +106,7 @@ func printLKML() {
 func main() {
 	flag.Parse()
 
-	for i := 0; i < *count; u++ {
+	for i := 0; i < *count; i++ {
 		if i > 0 {
 			time.Sleep(time.Duration(*delay) * time.Second)
 		}
