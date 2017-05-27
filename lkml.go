@@ -107,7 +107,7 @@ func printLKML() {
 		fmt.Printf("%s\n\t%s\n\t%s\n", it.title, it.author, it.link)
 	}
 
-	if lastItem.link == "" {
+	if len(items) > 0 {
 		lastItem = items[len(items)-1]
 	}
 }
