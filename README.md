@@ -1,5 +1,5 @@
 lkml
-========
+====
 
 `lkml` is a simple, stupid lkml (Linux Kernel Mailing List) viewer.
 
