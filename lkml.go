@@ -82,8 +82,21 @@ func fetchRSS() string {
 	return string(body)
 }
 
+func itemsAfter(items []rssItem, last rssItem) []rssItem {
+	for i := len(items) - 1; i > 0; i-- {
+		it := items[i]
+		if it.link == last.link {
+			return items[i:]
+		}
+	}
+	return items
+}
+
+var lastItem rssItem
+
 func printLKML() {
 	items := parseRSS(fetchRSS())
+	items = itemsAfter(items, lastItem)
 
 	// 0th index is rss channel title. So, skip it.
 	for i := len(items) - 1; i > 0; i-- {
@@ -92,6 +105,10 @@ func printLKML() {
 			continue
 		}
 		fmt.Printf("%s\n\t%s\n\t%s\n", it.title, it.author, it.link)
+	}
+
+	if lastItem.link == "" {
+		lastItem = items[len(items)-1]
 	}
 }
 
