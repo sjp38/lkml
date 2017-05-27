@@ -100,9 +100,6 @@ func main() {
 
 	i := 0
 	for {
-		if i > 0 {
-			time.Sleep(time.Duration(*delay) * time.Second)
-		}
 		printLKML()
 
 		i++
@@ -112,5 +109,6 @@ func main() {
 		if (i >= *count) {
 			break
 		}
+		time.Sleep(time.Duration(*delay) * time.Second)
 	}
 }
