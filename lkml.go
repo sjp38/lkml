@@ -70,9 +70,7 @@ func parseRSS(rssText string) []rssItem {
 	return items
 }
 
-func main() {
-	flag.Parse()
-
+func fetchRSS() string {
 	resp, err := http.Get("https://lkml.org/rss.php")
 	if err != nil {
 		panic(fmt.Sprintf("failed to get rss: %s", err))
@@ -84,7 +82,13 @@ func main() {
 		panic(fmt.Sprintf("failed to read body: %s", err))
 	}
 
-	items := parseRSS(string(body))
+	return string(body)
+}
+
+func main() {
+	flag.Parse()
+
+	items := parseRSS(fetchRSS())
 
 	// 0th index is rss channel title. So, skip it.
 	for i := len(items) - 1; i > 0; i-- {
