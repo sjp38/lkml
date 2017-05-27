@@ -104,11 +104,12 @@ func main() {
 
 		i++
 		if *count == -1 {
-			continue
+			goto cont
 		}
 		if (i >= *count) {
 			break
 		}
+cont:
 		time.Sleep(time.Duration(*delay) * time.Second)
 	}
 }
