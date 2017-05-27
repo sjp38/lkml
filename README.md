@@ -5,7 +5,7 @@ lkml
 
 
 Install
--------
+=======
 
 Installation is very simple.  Just use the `go get` tool if you already set up
 Go development environment as below:
@@ -16,7 +16,7 @@ $ go get github.com/sjp38/lkml
 
 
 Options
--------
+=======
 
 ```
   -count int
