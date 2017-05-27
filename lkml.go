@@ -6,9 +6,14 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 )
 
-var keyword = flag.String("keyword", "", "Keyword to be exist in title")
+var (
+	keyword = flag.String("keyword", "", "Keyword to be exist in title")
+	delay   = flag.Int("delay", 0, "Delay between updates in seconds")
+	count   = flag.Int("count", 1, "Updates count")
+)
 
 type rssItem struct {
 	title  string
@@ -88,14 +93,19 @@ func fetchRSS() string {
 func main() {
 	flag.Parse()
 
-	items := parseRSS(fetchRSS())
-
-	// 0th index is rss channel title. So, skip it.
-	for i := len(items) - 1; i > 0; i-- {
-		if !strings.Contains(items[i].title, *keyword) {
-			continue
+	for u := 0; u < *count; u++ {
+		if u > 0 {
+			time.Sleep(time.Duration(*delay) * time.Second)
 		}
-		fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title,
-			items[i].author, items[i].link)
+		items := parseRSS(fetchRSS())
+
+		// 0th index is rss channel title. So, skip it.
+		for i := len(items) - 1; i > 0; i-- {
+			if !strings.Contains(items[i].title, *keyword) {
+				continue
+			}
+			fmt.Printf("%s\n\t%s\n\t%s\n", items[i].title,
+				items[i].author, items[i].link)
+		}
 	}
 }
