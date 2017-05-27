@@ -53,21 +53,13 @@ func parseRSS(rssText string) []rssItem {
 		txt := strings.TrimSpace(line)
 		if txt == "<item>" {
 			item = rssItem{}
-			continue
-		}
-		if isElemOf(txt, "title") {
+		} else if isElemOf(txt, "title") {
 			item.title = contentOf(txt, "title")
-			continue
-		}
-		if isElemOf(txt, "author") {
+		} else if isElemOf(txt, "author") {
 			item.author = contentOf(txt, "author")
-			continue
-		}
-		if isElemOf(txt, "link") {
+		} else if isElemOf(txt, "link") {
 			item.link = contentOf(txt, "link")
-			continue
-		}
-		if txt == "</item>" {
+		} else if txt == "</item>" {
 			items = append(items, item)
 		}
 	}
