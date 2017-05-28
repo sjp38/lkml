@@ -105,8 +105,7 @@ func printLKML() {
 		return
 	}
 
-	// 0th index is rss channel title. So, skip it.
-	for i := len(items) - 1; i > 0; i-- {
+	for i := len(items) - 1; i >= 0; i-- {
 		it := items[i]
 		if !strings.Contains(it.title, *keyword) {
 			continue
