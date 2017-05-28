@@ -83,10 +83,11 @@ func fetchRSS() string {
 }
 
 func itemsAfter(items []rssItem, last rssItem) []rssItem {
-	for i := len(items) - 1; i > 0; i-- {
+	// The items in the array is in descending order
+	for i := 0; i < len(items); i++ {
 		it := items[i]
 		if it.link == last.link {
-			return items[i+1:]
+			return items[:i]
 		}
 	}
 	return items
@@ -99,8 +100,9 @@ func printLKML() {
 	items := parseRSS(fetchRSS())
 	items = itemsAfter(items, lastItem)
 
-	if len(items) > 0 {
-		lastItem = items[len(items)-1]
+	// First item is for lkml itself, not for mail
+	if len(items) > 1 {
+		lastItem = items[1]
 		if wasSilence {
 			fmt.Printf("\n")
 		}
@@ -110,7 +112,7 @@ func printLKML() {
 		return
 	}
 
-	for i := len(items) - 1; i >= 0; i-- {
+	for i := len(items) - 1; i > 0; i-- {
 		it := items[i]
 		if !strings.Contains(it.title, *keyword) {
 			continue
