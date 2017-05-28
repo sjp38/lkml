@@ -98,6 +98,12 @@ func printLKML() {
 	items := parseRSS(fetchRSS())
 	items = itemsAfter(items, lastItem)
 
+	if len(items) > 0 {
+		lastItem = items[len(items)-1]
+	} else {
+		fmt.Printf(" ...")
+	}
+
 	// 0th index is rss channel title. So, skip it.
 	for i := len(items) - 1; i > 0; i-- {
 		it := items[i]
@@ -105,12 +111,6 @@ func printLKML() {
 			continue
 		}
 		fmt.Printf("%s\n\t%s\n\t%s\n\n", it.title, it.author, it.link)
-	}
-
-	if len(items) > 0 {
-		lastItem = items[len(items)-1]
-	} else {
-		fmt.Printf(" ...")
 	}
 }
 
