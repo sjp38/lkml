@@ -102,6 +102,7 @@ func printLKML() {
 		lastItem = items[len(items)-1]
 	} else {
 		fmt.Printf(" ...")
+		return
 	}
 
 	// 0th index is rss channel title. So, skip it.
