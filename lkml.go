@@ -105,7 +105,7 @@ func printLKML() {
 			fmt.Printf("\n")
 		}
 	} else {
-		fmt.Printf(" ...")
+		fmt.Printf(".")
 		wasSilence = true
 		return
 	}
