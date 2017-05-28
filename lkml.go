@@ -104,7 +104,7 @@ func printLKML() {
 		if !strings.Contains(it.title, *keyword) {
 			continue
 		}
-		fmt.Printf("%s\n\t%s\n\t%s\n", it.title, it.author, it.link)
+		fmt.Printf("%s\n\t%s\n\t%s\n\n", it.title, it.author, it.link)
 	}
 
 	if len(items) > 0 {
