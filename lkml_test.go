@@ -1,31 +1,31 @@
 package main
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestItemsAfter(t *testing.T) {
-	items := []rssItem {
-		rssItem {
-			title: "abc",
+	items := []rssItem{
+		rssItem{
+			title:  "abc",
 			author: "foo",
-			link: "1",
+			link:   "1",
 		},
-		rssItem {
-			title: "def",
+		rssItem{
+			title:  "def",
 			author: "foo2",
-			link: "2",
+			link:   "2",
 		},
-		rssItem {
-			title: "ghi",
+		rssItem{
+			title:  "ghi",
 			author: "foo3",
-			link: "3",
+			link:   "3",
 		},
-		rssItem {
-			title: "jkl",
+		rssItem{
+			title:  "jkl",
 			author: "foo4",
-			link: "4",
+			link:   "4",
 		},
 	}
 

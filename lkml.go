@@ -123,10 +123,10 @@ func main() {
 		if *count == -1 {
 			goto cont
 		}
-		if (i >= *count) {
+		if i >= *count {
 			break
 		}
-cont:
+	cont:
 		time.Sleep(time.Duration(*delay) * time.Second)
 	}
 }
