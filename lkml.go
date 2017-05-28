@@ -109,6 +109,8 @@ func printLKML() {
 
 	if len(items) > 0 {
 		lastItem = items[len(items)-1]
+	} else {
+		fmt.Printf(" ...")
 	}
 }
 
