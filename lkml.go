@@ -86,7 +86,7 @@ func itemsAfter(items []rssItem, last rssItem) []rssItem {
 	for i := len(items) - 1; i > 0; i-- {
 		it := items[i]
 		if it.link == last.link {
-			return items[i:]
+			return items[i+1:]
 		}
 	}
 	return items
