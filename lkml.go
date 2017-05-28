@@ -93,6 +93,7 @@ func itemsAfter(items []rssItem, last rssItem) []rssItem {
 }
 
 var lastItem rssItem
+var wasSilence bool
 
 func printLKML() {
 	items := parseRSS(fetchRSS())
@@ -100,8 +101,12 @@ func printLKML() {
 
 	if len(items) > 0 {
 		lastItem = items[len(items)-1]
+		if wasSilence {
+			fmt.Printf("\n")
+		}
 	} else {
 		fmt.Printf(" ...")
+		wasSilence = true
 		return
 	}
 
