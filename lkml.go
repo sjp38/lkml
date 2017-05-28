@@ -112,6 +112,7 @@ func printLKML() {
 		return
 	}
 
+	// First item is for lkml itself, not for mail
 	for i := len(items) - 1; i > 0; i-- {
 		it := items[i]
 		if !strings.Contains(it.title, *keyword) {
