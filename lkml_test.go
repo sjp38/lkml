@@ -31,11 +31,11 @@ func TestItemsAfter(t *testing.T) {
 
 	after := itemsAfter(items, items[1])
 	if !reflect.DeepEqual(after, items[:1]) {
-		t.Error("expected %v but %v\n", items[2:], after)
+		t.Errorf("expected %v but %v\n", items[2:], after)
 	}
 
 	after = itemsAfter(items, items[0])
 	if !reflect.DeepEqual(after, []rssItem{}) {
-		t.Error("expected %v but %v\n", []rssItem{}, after)
+		t.Errorf("expected %v but %v\n", []rssItem{}, after)
 	}
 }
