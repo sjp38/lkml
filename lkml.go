@@ -70,13 +70,15 @@ func parseRSS(rssText string) []rssItem {
 func fetchRSS() string {
 	resp, err := http.Get("https://lkml.org/rss.php")
 	if err != nil {
-		panic(fmt.Sprintf("failed to get rss: %s", err))
+		fmt.Printf("failed to get rss: %s", err)
+		return ""
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
 	if err != nil {
-		panic(fmt.Sprintf("failed to read body: %s", err))
+		fmt.Printf("failed to read body: %s", err)
+		return ""
 	}
 
 	return string(body)
