@@ -121,7 +121,8 @@ func printLKML() {
 		if !strings.Contains(it.title, *keyword) {
 			continue
 		}
-		if *patchonly && !strings.HasPrefix(it.title, "[PATCH") {
+		if *patchonly && (!strings.HasPrefix(it.title, "[PATCH") &&
+			!strings.HasPrefix(it.title, "[RFC")) {
 			continue
 		}
 		fmt.Printf("%s\n\t%s\n\t%s\n\n", it.title, it.author, it.link)
