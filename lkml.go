@@ -13,6 +13,7 @@ var (
 	keyword = flag.String("keyword", "", "Keyword to be exist in title")
 	delay   = flag.Int("delay", 0, "Delay between updates in seconds")
 	count   = flag.Int("count", 1, "Updates count")
+	patchonly  = flag.Bool("patch", false, "Display patches only")
 )
 
 type rssItem struct {
@@ -118,6 +119,9 @@ func printLKML() {
 	for i := len(items) - 1; i > 0; i-- {
 		it := items[i]
 		if !strings.Contains(it.title, *keyword) {
+			continue
+		}
+		if *patchonly && !strings.HasPrefix(it.title, "[PATCH") {
 			continue
 		}
 		fmt.Printf("%s\n\t%s\n\t%s\n\n", it.title, it.author, it.link)
