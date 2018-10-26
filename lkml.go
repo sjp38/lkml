@@ -10,10 +10,10 @@ import (
 )
 
 var (
-	keyword = flag.String("keyword", "", "Keyword to be exist in title")
-	delay   = flag.Int("delay", 0, "Delay between updates in seconds")
-	count   = flag.Int("count", 1, "Updates count")
-	patchonly  = flag.Bool("patch", false, "Display patches only")
+	keyword   = flag.String("keyword", "", "Keyword to be exist in title")
+	delay     = flag.Int("delay", 0, "Delay between updates in seconds")
+	count     = flag.Int("count", 1, "Updates count")
+	patchonly = flag.Bool("patch", false, "Display patches only")
 )
 
 type rssItem struct {
